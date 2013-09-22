@@ -150,8 +150,8 @@ public class Fraction {
 	}
 
 	public Fraction negate() {
-		Fraction neg = new Fraction(this.numerator().multiply(
-				BigInteger.valueOf(-1)), this.denominator());
+		Fraction neg = new Fraction(this.numerator().negate(),
+				this.denominator());
 		neg.simplify();
 		return neg;
 	}
@@ -198,9 +198,11 @@ public class Fraction {
 		return numerator.hashCode() * denominator.hashCode();
 	} //hashCode()
 	
-	public int compareTo(Fraction other) {
-		return 0;
-	} //compareTo(Fraction)
+	public int compareTo(Fraction other){
+		Fraction f = this.subtract(other);
+		f.simplify();
+		return f.numerator().compareTo(BigInteger.ZERO);
+	}
 	
 	public boolean equals(Object other) {
 		return (other instanceof Fraction) && this.equals((Fraction) other);
@@ -211,7 +213,19 @@ public class Fraction {
 	 *  +-----------------+ */
 	
 	private void simplify() {
-		// TODO Auto-generated method stub
+		// Find Greatest Common Divisor
+		BigInteger gcd = this.numerator().gcd(this.denominator());
+
+		// Simplify by dividing both parts by GCD
+		BigInteger num = this.numerator().divide(gcd);
+		BigInteger den = this.denominator().divide(gcd);
+
+		// Move negative sign to numerator
+		if (denominator().compareTo(BigInteger.ZERO) < 0) {
+			num = num.negate();
+			den = den.negate();
+		}
 	}
+	
 
 } // Fraction
