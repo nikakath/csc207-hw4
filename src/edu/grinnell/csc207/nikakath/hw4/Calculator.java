@@ -49,7 +49,7 @@ public class Calculator {
 			}
 			else if (expressions[1].equals("*"))
 			{
-				return first.,multiply(other);
+				return first.multiply(other);
 			}
 			else if (expressions[1].equals("-"))
 			{
