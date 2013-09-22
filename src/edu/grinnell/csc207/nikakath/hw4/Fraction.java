@@ -6,6 +6,10 @@ import java.math.BigInteger;
 public class Fraction {
 	private BigInteger numerator;
 	private BigInteger denominator;
+	
+	/*  +--------------+
+	 *  | Constructors |
+	 *  +--------------+ */
 
 	public Fraction(int num, int den) {
 		this.numerator = BigInteger.valueOf(num);
@@ -82,6 +86,10 @@ public class Fraction {
 		this.denominator = new BigInteger(fraction.substring(j + 1));
 		this.simplify();
 	} // Fraction(String)
+	
+	/*  +----------------+
+	 *  | Public methods |
+	 *  +----------------+ */
 
 	public BigInteger numerator() {
 		return this.numerator;
@@ -173,7 +181,35 @@ public class Fraction {
 		whole.simplify();
 		return whole.numerator();
 	}
+	
+	/*  +------------------+
+	 *  | Standard methods |
+	 *  +------------------+ */
+	
+	public Fraction clone() {
+		return null;
+	} //clone()
+	
+	public String toString() {
+		return (this.numerator + "/" + this.denominator);
+	} //toString()
+	
+	public int hashCode() {
+		return numerator.hashCode() * denominator.hashCode();
+	} //hashCode()
+	
+	public int compareTo(Fraction other) {
+		return 0;
+	} //compareTo(Fraction)
+	
+	public boolean equals(Object other) {
+		return (other instanceof Fraction) && this.equals((Fraction) other);
+	} //equals(Object)
 
+	/*  +-----------------+
+	 *  | Private methods |
+	 *  +-----------------+ */
+	
 	private void simplify() {
 		// TODO Auto-generated method stub
 	}
