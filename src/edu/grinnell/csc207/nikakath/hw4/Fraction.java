@@ -174,6 +174,12 @@ public class Fraction {
 		return whole.numerator();
 	}
 
+	public int compareTo(Fraction other){
+		Fraction f = this.subtract(other);
+		f.simplify();
+		return f.numerator().compareTo(BigInteger.ZERO);
+	}
+	
 	private void simplify() {
 		// Find Greatest Common Divisor
 		BigInteger gcd = this.numerator().gcd(this.denominator());
@@ -188,5 +194,6 @@ public class Fraction {
 			den = den.negate();
 		}
 	}
+	
 
 } // Fraction
