@@ -78,6 +78,11 @@ public class FractionTest {
 	assertEquals("frac * 1", single, single.multiply(new Fraction(1)));
 	assertEquals("frac * 0", new Fraction(0), single.multiply(new Fraction(0)));
 	
+	// divide(Fraction) NOT FINISHED
+	assertEquals("pos / pos", new Fraction(5, 2), half.divide(new Fraction(1, 5)));
+	assertEquals("pos / neg", new Fraction(-5, 2), single.divide(new Fraction(1, -5)));
+	assertEquals("frac / 1", half, half.divide(new Fraction(1)));
+	
     }
 
 }

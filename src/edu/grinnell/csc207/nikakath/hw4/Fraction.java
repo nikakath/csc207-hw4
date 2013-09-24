@@ -69,15 +69,10 @@ public class Fraction {
 
 	public Fraction(String fraction) {
 		
-		if (! fraction.contains("/")) {
-		
+		if (! fraction.contains("/")) {	
 			this.numerator = new BigInteger(fraction);
 			this.denominator = BigInteger.ONE;
-			
-		}
-		
-		else {
-		
+		} else {	
 		int j = 0;
 		boolean afterSlash = false;
 
