@@ -29,15 +29,14 @@ public class FractionTest {
 	//Constructor from String
 	Fraction e = new Fraction("6/8");
 	Fraction f = new Fraction("7");
-	//change to 4 when simplify is working
-	assertEquals("string", BigInteger.valueOf(8), e.denominator());
+	assertEquals("string", BigInteger.valueOf(4), e.denominator());
 	assertEquals("string", BigInteger.valueOf(7), f.numerator());
 	assertEquals("string", BigInteger.valueOf(1), f.denominator());
 	
 	//Constructor from double
 	 Fraction threeFourths = new Fraction (.75);
-	 //change to 3 when simplify is working
-	 assertEquals("double", BigInteger.valueOf(750), threeFourths.numerator());
+	 assertEquals("double", BigInteger.valueOf(3), threeFourths.numerator());
+	 assertEquals("double", BigInteger.valueOf(4), threeFourths.denominator());
 
     } //constructors
     
@@ -53,10 +52,10 @@ public class FractionTest {
 	Fraction neghalf = new Fraction(-1, 2);
 	
 	// numerator()
-	assertEquals("num", BigInteger.valueOf(2), one.numerator());
+	assertEquals("num", BigInteger.valueOf(1), one.numerator());
 	
-	// numerator()
-	assertEquals("den", BigInteger.valueOf(2), one.denominator());
+	// denominator()
+	assertEquals("den", BigInteger.valueOf(1), one.denominator());
 	
 	// add(Fraction)
 	assertEquals("pos + pos", new Fraction(7), single.add(new Fraction(6)));
@@ -80,9 +79,26 @@ public class FractionTest {
 	
 	// divide(Fraction) NOT FINISHED
 	assertEquals("pos / pos", new Fraction(5, 2), half.divide(new Fraction(1, 5)));
-	assertEquals("pos / neg", new Fraction(-5, 2), single.divide(new Fraction(1, -5)));
+	assertEquals("pos / neg", new Fraction(-5, 1), single.divide(new Fraction(1, -5)));
 	assertEquals("frac / 1", half, half.divide(new Fraction(1)));
 	
+	//negate()
+	
+	
+	
+	
+	
+	// simplify()
+	assertEquals("2/2", BigInteger.ONE, new Fraction(2,2).numerator());
+	assertEquals("2/2", BigInteger.ONE, new Fraction(2,2).denominator());
+	assertEquals("10/-5", BigInteger.valueOf(-2), new Fraction(10,-5).numerator());
+	assertEquals("10/-5", BigInteger.ONE, new Fraction(10,-5).denominator());	
+	assertEquals("-5/5", BigInteger.valueOf(-1), new Fraction(-5,5).numerator());
+	assertEquals("-5/5", BigInteger.ONE, new Fraction(-5,5).denominator());
+	assertEquals("-5/-10", BigInteger.valueOf(2), new Fraction(-5,-10).denominator());
+	assertEquals("-5/-10", BigInteger.ONE, new Fraction(-5,-10).numerator());
+
+
     }
 
 }

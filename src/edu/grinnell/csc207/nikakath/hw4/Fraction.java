@@ -6,10 +6,10 @@ import java.math.BigInteger;
 public class Fraction {
 	private BigInteger numerator;
 	private BigInteger denominator;
-	
-	/*  +--------------+
-	 *  | Constructors |
-	 *  +--------------+ */
+
+	/*
+	 * +--------------+ | Constructors | +--------------+
+	 */
 
 	public Fraction(int num, int den) {
 		this.numerator = BigInteger.valueOf(num);
@@ -68,51 +68,51 @@ public class Fraction {
 	} // Fraction(double)
 
 	public Fraction(String fraction) {
-		
-		if (! fraction.contains("/")) {	
+
+		if (!fraction.contains("/")) {
 			this.numerator = new BigInteger(fraction);
 			this.denominator = BigInteger.ONE;
-		} else {	
-		int j = 0;
-		boolean afterSlash = false;
+		} else {
+			int j = 0;
+			boolean afterSlash = false;
 
-		for (int i = 0; i < fraction.length(); i++) {
-			if (fraction.charAt(i) == '/') {
-				afterSlash = true;
-			} //if
+			for (int i = 0; i < fraction.length(); i++) {
+				if (fraction.charAt(i) == '/') {
+					afterSlash = true;
+				} // if
 
-			if (afterSlash) {
-				j++;
-			} //if
-		} //for 
+				if (afterSlash) {
+					j++;
+				} // if
+			} // for
 
-		this.numerator = new BigInteger(fraction.substring(0,
-				(fraction.length() - j)));
-		this.denominator = new BigInteger(fraction.substring(j));
-		this.simplify();
+			this.numerator = new BigInteger(fraction.substring(0,
+					(fraction.length() - j)));
+			this.denominator = new BigInteger(fraction.substring(j));
+			this.simplify();
 		} // if
 	} // Fraction(String)
-	
-	/*  +----------------+
-	 *  | Public methods |
-	 *  +----------------+ */
+
+	/*
+	 * +----------------+ | Public methods | +----------------+
+	 */
 
 	public BigInteger numerator() {
 		return this.numerator;
-	}
+	} // numerator()
 
 	public BigInteger denominator() {
 		return this.denominator;
-	}
+	} // denominator()
 
 	public Fraction add(Fraction other) {
 		BigInteger num = this.numerator().multiply(other.denominator())
 				.add(other.numerator().multiply(this.denominator()));
 		BigInteger den = this.denominator().multiply(other.denominator());
 		Fraction sum = new Fraction(num, den);
-		// sum.simplify();
+		sum.simplify();
 		return sum;
-	}
+	} // add(Fraction)
 
 	public Fraction subtract(Fraction other) {
 		BigInteger num = this.numerator().multiply(other.denominator())
@@ -121,15 +121,15 @@ public class Fraction {
 		Fraction difference = new Fraction(num, den);
 		difference.simplify();
 		return difference;
-	}
+	} // subtract(Fraction)
 
 	public Fraction multiply(Fraction other) {
 		BigInteger num = this.numerator().multiply(other.numerator());
 		BigInteger den = this.denominator().multiply(other.denominator());
 		Fraction product = new Fraction(num, den);
-		// product.simplify();
+		product.simplify();
 		return product;
-	}
+	} // multiply(Fraction)
 
 	public Fraction divide(Fraction other) {
 		if (other.numerator().intValue() != 0) {
@@ -141,11 +141,11 @@ public class Fraction {
 		} else {
 			throw new ArithmeticException("Division by 0");
 		}
-	}
+	} // divide(Fraction)
 
 	public Fraction pow(int expt) {
 		return null;
-	}
+	} // pow(int)
 
 	public Fraction reciprocal() {
 		BigInteger num = this.denominator();
@@ -153,24 +153,24 @@ public class Fraction {
 		Fraction recip = new Fraction(num, den);
 		recip.simplify();
 		return recip;
-	}
+	} // reciprocal()
 
 	public Fraction negate() {
 		Fraction neg = new Fraction(this.numerator().negate(),
 				this.denominator());
 		neg.simplify();
 		return neg;
-	}
+	} // negate()
 
 	public double doubleValue() {
 		return this.numerator().doubleValue()
 				/ this.denominator().doubleValue();
-	}
+	} // doubleValue()
 
 	public BigDecimal bigDecimalValue() {
 		return new BigDecimal(this.numerator()).divide(new BigDecimal(this
 				.denominator()));
-	}
+	} // bigDecimalValue()
 
 	public Fraction fractionalPart() {
 		BigInteger num = this.numerator();
@@ -180,58 +180,58 @@ public class Fraction {
 		Fraction frac = new Fraction(num, this.denominator());
 		frac.simplify();
 		return frac;
-	}
+	} // fractionalPart()
 
 	public BigInteger wholePart() {
 		Fraction whole = this.subtract(this.fractionalPart());
 		whole.simplify();
 		return whole.numerator();
-	}
-	
-	/*  +------------------+
-	 *  | Standard methods |
-	 *  +------------------+ */
-	
+	} // wholePart()
+
+	/*
+	 * +------------------+ | Standard methods | +------------------+
+	 */
+
 	public Fraction clone() {
-	    Fraction frac = new Fraction(this.numerator(), this.denominator());
+		Fraction frac = new Fraction(this.numerator(), this.denominator());
 		return frac;
-	} //clone()
-	
+	} // clone()
+
 	public String toString() {
 		return (this.numerator + "/" + this.denominator);
-	} //toString()
-	
+	} // toString()
+
 	public int hashCode() {
 		return numerator.hashCode() * denominator.hashCode();
-	} //hashCode()
-	
-	public int compareTo(Fraction other){
+	} // hashCode()
+
+	public int compareTo(Fraction other) {
 		Fraction f = this.subtract(other);
 		f.simplify();
 		return f.numerator().compareTo(BigInteger.ZERO);
-	} //compareTo(Fraction)
-	
+	} // compareTo(Fraction)
+
 	public boolean equals(Object other) {
 		if (other instanceof Fraction) {
 			return this.equals((Fraction) other);
 		} else {
 			return false;
-		} 
-	} //equals(Object)
-	
+		}
+	} // equals(Object)
+
 	public boolean equals(Fraction other) {
-		  return this.numerator.equals(other.numerator)
-		         && this.denominator.equals(other.denominator);
-	} //equals(Fraction)
+		return this.numerator.equals(other.numerator)
+				&& this.denominator.equals(other.denominator);
+	} // equals(Fraction)
 
-	/*  +-----------------+
-	 *  | Private methods |
-	 *  +-----------------+ */
-	
+	/*
+	 * +-----------------+ | Private methods | +-----------------+
+	 */
+
 	private void simplify() {
-		// Find Greatest Common Divisor
+				// Find Greatest Common Divisor
 		BigInteger gcd = this.numerator().gcd(this.denominator());
-
+		
 		// Simplify by dividing both parts by GCD
 		BigInteger num = this.numerator().divide(gcd);
 		BigInteger den = this.denominator().divide(gcd);
@@ -241,14 +241,9 @@ public class Fraction {
 			num = num.negate();
 			den = den.negate();
 		}
-		//Fraction simpler = new Fraction(num, den);
-	//	return simpler;
-	} //simplify()
-	
-	public static void main(String[] args) {
-	    Fraction rational = new Fraction("6/8");
-	    System.out.println(rational);
-	  //rational.simplify();
-	    //System.out.println(rational);
-	}
+
+		// Change values
+		this.numerator = num;
+		this.denominator = den;
+	} // simplify()
 } // Fraction
