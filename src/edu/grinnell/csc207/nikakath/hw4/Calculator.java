@@ -67,12 +67,18 @@ public class Calculator {
 						+ e.getMessage());
 				pen.flush();
 			}
-			Fraction result = evaluate(in);
-			if (result == null) {
-				pen.println("Stored!");
-				pen.flush();
-			} else {
-				pen.println(in + " = " + result.toString());
+			try {
+				Fraction result = evaluate(in);
+				if (result == null) {
+					pen.println("Stored!");
+					pen.flush();
+				} else {
+					pen.println(in + " = " + result.toString());
+					pen.flush();
+				}
+			} catch (Exception e) {
+				pen.println("I'm sorry; something was wrong with your input. "
+						+ e.getMessage());
 				pen.flush();
 			}
 			pen.print("Input another expression? y/n ");
