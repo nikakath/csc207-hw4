@@ -9,11 +9,11 @@ public class Calculator {
 	static String[] rs = { "0", "0", "0", "0", "0", "0", "0", "0" };
 
 	public static Fraction evaluate(String expression) {
-		System.out.println("    expression sent is " + expression);
 		String[] expressions = expression.split(" ");
 		if (expression.contains("=")) {
 			String substring = expression.substring(expression.indexOf("="));
 			rs[Character.getNumericValue(expression.charAt(1))] = substring;
+			return null;
 		}
 
 		else if (expressions.length <= 2) {
@@ -33,8 +33,6 @@ public class Calculator {
 			for (int i = 3; i < expressions.length; i++) {
 				rest = rest.concat(" ").concat(expressions[i]);
 			}
-			System.out.println("    right before division " + expression);
-
 			if (expressions[1].equals("/")) {
 				return evaluate(first.divide(other).toString().concat(rest));
 			} else if (expressions[1].equals("+")) {
@@ -67,7 +65,11 @@ public class Calculator {
 					+ e.getMessage());
 		}
 		Fraction result = evaluate(in);
-		pen.print(in + " = " + result.toString());
+		if(result.equals(null)){
+			pen.print("Stored!");
+		}else{
+			pen.print(in + " = " + result.toString());
+		}
 		pen.close();
 		try {
 			eyes.close();
