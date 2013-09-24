@@ -144,7 +144,11 @@ public class Fraction {
 	} // divide(Fraction)
 
 	public Fraction pow(int expt) {
-		return null;
+		Fraction result = this.clone();
+		for(int i=0; i<expt; i++){
+			result = result.multiply(this);
+		}
+		return result;
 	} // pow(int)
 
 	public Fraction reciprocal() {
