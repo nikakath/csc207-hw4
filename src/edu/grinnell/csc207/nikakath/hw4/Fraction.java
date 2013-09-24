@@ -68,23 +68,34 @@ public class Fraction {
 	} // Fraction(double)
 
 	public Fraction(String fraction) {
+		
+		if (! fraction.contains("/")) {
+		
+			this.numerator = new BigInteger(fraction);
+			this.denominator = BigInteger.ONE;
+			
+		}
+		
+		else {
+		
 		int j = 0;
 		boolean afterSlash = false;
 
 		for (int i = 0; i < fraction.length(); i++) {
 			if (fraction.charAt(i) == '/') {
 				afterSlash = true;
-			}
+			} //if
 
 			if (afterSlash) {
 				j++;
-			}
-		}
+			} //if
+		} //for 
 
 		this.numerator = new BigInteger(fraction.substring(0,
 				(fraction.length() - j)));
 		this.denominator = new BigInteger(fraction.substring(j));
 		this.simplify();
+		} // if
 	} // Fraction(String)
 	
 	/*  +----------------+
@@ -121,7 +132,7 @@ public class Fraction {
 		BigInteger num = this.numerator().multiply(other.numerator());
 		BigInteger den = this.denominator().multiply(other.denominator());
 		Fraction product = new Fraction(num, den);
-		product.simplify();
+		// product.simplify();
 		return product;
 	}
 
@@ -203,11 +214,20 @@ public class Fraction {
 		Fraction f = this.subtract(other);
 		f.simplify();
 		return f.numerator().compareTo(BigInteger.ZERO);
-	}
+	} //compareTo(Fraction)
 	
 	public boolean equals(Object other) {
-		return (other instanceof Fraction) && this.equals((Fraction) other);
+		if (other instanceof Fraction) {
+			return this.equals((Fraction) other);
+		} else {
+			return false;
+		} 
 	} //equals(Object)
+	
+	public boolean equals(Fraction other) {
+		  return this.numerator.equals(other.numerator)
+		         && this.denominator.equals(other.denominator);
+	} //equals(Fraction)
 
 	/*  +-----------------+
 	 *  | Private methods |
