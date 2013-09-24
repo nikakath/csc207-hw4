@@ -83,7 +83,7 @@ public class Fraction {
 
 		this.numerator = new BigInteger(fraction.substring(0,
 				(fraction.length() - j)));
-		this.denominator = new BigInteger(fraction.substring(j + 1));
+		this.denominator = new BigInteger(fraction.substring(j));
 		this.simplify();
 	} // Fraction(String)
 	
@@ -104,7 +104,7 @@ public class Fraction {
 				.add(other.numerator().multiply(this.denominator()));
 		BigInteger den = this.denominator().multiply(other.denominator());
 		Fraction sum = new Fraction(num, den);
-		sum.simplify();
+		// sum.simplify();
 		return sum;
 	}
 
@@ -187,7 +187,8 @@ public class Fraction {
 	 *  +------------------+ */
 	
 	public Fraction clone() {
-		return null;
+	    Fraction frac = new Fraction(this.numerator(), this.denominator());
+		return frac;
 	} //clone()
 	
 	public String toString() {
@@ -225,7 +226,14 @@ public class Fraction {
 			num = num.negate();
 			den = den.negate();
 		}
-	}
+		//Fraction simpler = new Fraction(num, den);
+	//	return simpler;
+	} //simplify()
 	
-
+	public static void main(String[] args) {
+	    Fraction rational = new Fraction("6/8");
+	    System.out.println(rational);
+	  //rational.simplify();
+	    //System.out.println(rational);
+	}
 } // Fraction
