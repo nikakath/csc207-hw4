@@ -1,4 +1,4 @@
-package edu.grinnell.csc207.nikakath.hw4;
+ package edu.grinnell.csc207.nikakath.hw4;
 
 import static org.junit.Assert.*;
 
@@ -94,8 +94,18 @@ public class FractionTest {
 		assertEquals("pos / neg", new Fraction(-5, 1),
 				single.divide(new Fraction(1, -5)));
 		assertEquals("frac / 1", half, half.divide(new Fraction(1)));
-
-		// negate()
+		try {
+		    third.divide(new Fraction(0));
+		    fail("Division by 0; should have thrown Exception");
+		}
+		catch (ArithmeticException e) {
+		    assertEquals("Caught division-by-0 exception", "Division by 0", e.getMessage());
+		}
+		
+	} //public methods
+	
+		@Test
+		public void testPrivateMethods() {
 
 		// simplify()
 		assertEquals("2/2", BigInteger.ONE, new Fraction(2, 2).numerator());
@@ -112,6 +122,6 @@ public class FractionTest {
 		assertEquals("-5/-10", BigInteger.ONE,
 				new Fraction(-5, -10).numerator());
 
-	}
+	} //private methods
 
 }
