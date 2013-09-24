@@ -155,7 +155,11 @@ public class Fraction {
 
 	/* Raise a Fraction to an integer exponent */
 	public Fraction pow(int expt) {
-		return null;
+		Fraction result = this.clone();
+		for(int i=0; i<expt; i++){
+			result = result.multiply(this);
+		}
+		return result;
 	} // pow(int)
 
 	/* Return the reciprocal of a Fraction */
@@ -218,7 +222,11 @@ public class Fraction {
 
 	/* Converts a Fraction as a string of form "x/y" */
 	public String toString() {
-		return (this.numerator + "/" + this.denominator);
+		if (denominator.intValue() == 1) {
+			return "" + this.numerator();
+		} else {
+			return (this.numerator + "/" + this.denominator);
+		}
 	} // toString()
 
 	/* Returns a relatively unique integer identifier */
