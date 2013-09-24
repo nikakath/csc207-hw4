@@ -55,20 +55,38 @@ public class Calculator {
 		java.io.InputStreamReader istream;
 		istream = new java.io.InputStreamReader(System.in);
 		eyes = new java.io.BufferedReader(istream);
+		boolean terminate = false;
 
-		pen.print("Input expression: ");
-		pen.flush();
-		try {
-			in = eyes.readLine();
-		} catch (IOException e) {
-			pen.println("I'm sorry; something was wrong with your input. "
-					+ e.getMessage());
-		}
-		Fraction result = evaluate(in);
-		if(result.equals(null)){
-			pen.print("Stored!");
-		}else{
-			pen.print(in + " = " + result.toString());
+		while (!terminate) {
+			pen.print("Input expression: ");
+			pen.flush();
+			try {
+				in = eyes.readLine();
+			} catch (IOException e) {
+				pen.println("I'm sorry; something was wrong with your input. "
+						+ e.getMessage());
+				pen.flush();
+			}
+			Fraction result = evaluate(in);
+			if (result == null) {
+				pen.println("Stored!");
+				pen.flush();
+			} else {
+				pen.println(in + " = " + result.toString());
+				pen.flush();
+			}
+			pen.print("Input another expression? y/n ");
+			pen.flush();
+			try {
+				in = eyes.readLine();
+			} catch (IOException e) {
+				pen.println("I'm sorry; something was wrong with your input. "
+						+ e.getMessage());
+				pen.flush();
+			}
+			if (in.startsWith("n")) {
+				terminate = true;
+			}
 		}
 		pen.close();
 		try {
