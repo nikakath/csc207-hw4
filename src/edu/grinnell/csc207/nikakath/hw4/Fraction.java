@@ -198,7 +198,11 @@ public class Fraction {
 	} // clone()
 
 	public String toString() {
-		return (this.numerator + "/" + this.denominator);
+		if (numerator.intValue() == 1) {
+			return "" + this.numerator();
+		} else {
+			return (this.numerator + "/" + this.denominator);
+		}
 	} // toString()
 
 	public int hashCode() {
