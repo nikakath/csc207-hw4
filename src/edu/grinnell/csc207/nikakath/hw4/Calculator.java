@@ -1,7 +1,5 @@
 package edu.grinnell.csc207.nikakath.hw4;
 
-import java.util.Arrays;
-
 import edu.grinnell.csc207.nikakath.hw4.Fraction;
 
 public class Calculator {
@@ -17,7 +15,8 @@ public class Calculator {
 
 		else if (expressions.length <= 2) {
 			if (expression.contains("r")) {
-				return (evaluate(rs[Character.getNumericValue(expression.charAt(1))]));
+				return (evaluate(rs[Character.getNumericValue(expression
+						.charAt(1))]));
 			} else {
 				return new Fraction(expressions[0]);
 			}
@@ -44,7 +43,7 @@ public class Calculator {
 			}
 
 		}
-		
+
 		return null;
 	}
 

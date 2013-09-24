@@ -229,9 +229,9 @@ public class Fraction {
 	 */
 
 	private void simplify() {
-				// Find Greatest Common Divisor
+		// Find Greatest Common Divisor
 		BigInteger gcd = this.numerator().gcd(this.denominator());
-		
+
 		// Simplify by dividing both parts by GCD
 		BigInteger num = this.numerator().divide(gcd);
 		BigInteger den = this.denominator().divide(gcd);
