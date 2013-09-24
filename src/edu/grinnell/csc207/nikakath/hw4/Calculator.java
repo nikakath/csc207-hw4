@@ -1,64 +1,54 @@
 package edu.grinnell.csc207.nikakath.hw4;
+
+import java.util.Arrays;
+
 import edu.grinnell.csc207.nikakath.hw4.Fraction;
 
 public class Calculator {
-	String r0, r1, r2, r3, r4, r5, r6,
-			r7 = r0 = r1 = r2 = r3 = r4 = r5 = r6 = r7 = "0";
+	static String[] rs = { "0", "0", "0", "0", "0", "0", "0", "0" };
 
-	public Fraction evaluate(String expression) {
-
+	public static Fraction evaluate(String expression) {
+		System.out.println("expression sent is " + expression);
 		String[] expressions = expression.split(" ");
-
 		if (expression.contains("=")) {
-			if (expressions[0].equals("r0"))
-				r0 = expressions[2];
-			else if (expressions[0].equals("r1"))
-				r1 = expressions[2];
-			else if (expressions[0].equals("r2"))
-				r2 = expressions[2];
-			else if (expressions[0].equals("r3"))
-				r3 = expressions[2];
-			else if (expressions[0].equals("r4"))
-				r4 = expressions[2];
-			else if (expressions[0].equals("r5"))
-				r5 = expressions[2];
-			else if (expressions[0].equals("r6"))
-				r6 = expressions[2];
-			else if (expressions[0].equals("r7"))
-				r7 = expressions[2];
+			String substring = expression.substring(expression.indexOf("="));
+			rs[Character.getNumericValue(expression.charAt(1))] = substring;
 		}
 
-		else if (expressions.length == 1) {
+		else if (expressions.length <= 2) {
 			if (expression.contains("r")) {
-				return (evaluate(expression));
+				return (evaluate(rs[Character.getNumericValue(expression.charAt(1))]));
 			} else {
-				return new Fraction(expression);
+				return new Fraction(expressions[0]);
 			}
 		}
 
 		else {
-			Fraction  first = evaluate(expressions[0]);
-			Fraction other= evaluate(expressions[2]);
-			if (expressions[1].equals("/"))
-			{
-				return first.divide(other);
+			Fraction first = evaluate(expressions[0]);
+			Fraction other = evaluate(expressions[2]);
+			String rest = "";
+
+			for (int i = 3; i < expressions.length; i++) {
+				rest = rest.concat(" ").concat(expressions[i]);
 			}
-			else if (expressions[1].equals("+"))
-			{
-				return first.add(other);
-			}
-			else if (expressions[1].equals("*"))
-			{
-				return first.multiply(other);
-			}
-			else if (expressions[1].equals("-"))
-			{
-				return first.subtract(other);
+			System.out.println("right before division " + expression);
+
+			if (expressions[1].equals("/")) {
+				return evaluate(first.divide(other).toString().concat(rest));
+			} else if (expressions[1].equals("+")) {
+				return evaluate(first.add(other).toString().concat(rest));
+			} else if (expressions[1].equals("*")) {
+				return evaluate(first.multiply(other).toString().concat(rest));
+			} else if (expressions[1].equals("-")) {
+				return evaluate(first.subtract(other).toString().concat(rest));
 			}
 
-			
 		}
-
+		
 		return null;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(evaluate("4 / 3"));
 	}
 }
