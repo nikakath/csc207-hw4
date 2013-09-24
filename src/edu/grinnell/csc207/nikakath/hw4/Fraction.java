@@ -198,7 +198,7 @@ public class Fraction {
 	} // clone()
 
 	public String toString() {
-		if (numerator.intValue() == 1) {
+		if (denominator.intValue() == 1) {
 			return "" + this.numerator();
 		} else {
 			return (this.numerator + "/" + this.denominator);
