@@ -90,7 +90,8 @@ public class Calculator {
 		return null;
 	}
 
-	public static void main(String[] args) throws Exception {
+
+	public static void main(String[] args) {
 		String in = "";
 		PrintWriter pen = new PrintWriter(System.out, true);
 		java.io.BufferedReader eyes;
@@ -102,26 +103,34 @@ public class Calculator {
 		while (!terminate) {
 			pen.print("Input expression: ");
 			pen.flush();
-			try {
-				in = eyes.readLine();
-			} catch (IOException e) {
-				pen.println("I'm sorry; something was wrong with your input. "
-						+ e.getMessage());
-				pen.flush();
-			}
-			try {
-				Fraction result = evaluate(in);
-				if (result == null) {
-					pen.println("Stored!");
-					pen.flush();
-				} else {
-					pen.println(in + " = " + result.toString());
+			boolean repeat = true;
+			while (repeat) {
+				try {
+					in = eyes.readLine();
+				} catch (IOException e) {
+					pen.println("I'm sorry; something was wrong with your input. "
+							+ e.getMessage());
 					pen.flush();
 				}
-			} catch (Exception e) {
-				pen.println("I'm sorry; something was wrong with your input. "
-						+ e.getMessage());
-				pen.flush();
+				try {
+					Fraction result = evaluate(in);
+					if (result == null) {
+						pen.println("Stored!");
+						pen.flush();
+					} else {
+						pen.println(in + " = " + result.toString());
+						pen.flush();
+					}
+				} catch (Exception e) {
+					if (e.getMessage().equals("Zero length BigInteger")) {
+						pen.println("I'm sorry; you did not input an expression. Please try again.");
+						pen.flush();
+					} else {
+						pen.println("I'm sorry; something was wrong with your input. "
+								+ e.getMessage());
+						pen.flush();
+					}
+				}
 			}
 			pen.print("Input another expression? y/n ");
 			pen.flush();
