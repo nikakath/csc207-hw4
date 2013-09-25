@@ -1,9 +1,7 @@
 package edu.grinnell.csc207.nikakath.hw4;
 
 import static org.junit.Assert.*;
-
 import java.math.BigInteger;
-
 import org.junit.Test;
 
 public class FractionTest {
@@ -21,21 +19,25 @@ public class FractionTest {
 			Fraction a2 = new Fraction(-3, 0);
 			fail("Division by 0; should have thrown Exception");
 		} catch (ArithmeticException e) {
-			assertEquals("Caught division-by-0 exception", "denominator must not be 0",
-					e.getMessage());
+			assertEquals("Caught division-by-0 exception",
+					"denominator must not be 0", e.getMessage());
 		}
 		Fraction a3 = new Fraction(Integer.MAX_VALUE, Integer.MIN_VALUE);
-		assertEquals("MAX/MIN ints", BigInteger.valueOf(Integer.MAX_VALUE).negate(), a3.numerator());
-		assertEquals("MAX/MIN ints", BigInteger.valueOf(Integer.MIN_VALUE).negate(), a3.denominator());
-		
+		assertEquals("MAX/MIN ints", BigInteger.valueOf(Integer.MAX_VALUE)
+				.negate(), a3.numerator());
+		assertEquals("MAX/MIN ints", BigInteger.valueOf(Integer.MIN_VALUE)
+				.negate(), a3.denominator());
+
 		Fraction b0 = new Fraction(5);
 		assertEquals("pos int", BigInteger.valueOf(5), b0.numerator());
 		assertEquals("pos int", BigInteger.ONE, b0.denominator());
 		Fraction b1 = new Fraction(Integer.MAX_VALUE);
-		assertEquals("MAX int", BigInteger.valueOf(Integer.MAX_VALUE), b1.numerator());
+		assertEquals("MAX int", BigInteger.valueOf(Integer.MAX_VALUE),
+				b1.numerator());
 		assertEquals("MAX int", BigInteger.ONE, b1.denominator());
 		Fraction b2 = new Fraction(Integer.MIN_VALUE);
-		assertEquals("MIN int", BigInteger.valueOf(Integer.MIN_VALUE), b2.numerator());
+		assertEquals("MIN int", BigInteger.valueOf(Integer.MIN_VALUE),
+				b2.numerator());
 		assertEquals("MIN int", BigInteger.ONE, b2.denominator());
 		Fraction b3 = new Fraction(0);
 		assertEquals("0 int", BigInteger.ZERO, b3.numerator());
@@ -55,21 +57,26 @@ public class FractionTest {
 			Fraction c2 = new Fraction(BigInteger.valueOf(-3), BigInteger.ZERO);
 			fail("Division by 0; should have thrown Exception");
 		} catch (ArithmeticException e) {
-			assertEquals("Caught division-by-0 exception", "denominator must not be 0",
-					e.getMessage());
+			assertEquals("Caught division-by-0 exception",
+					"denominator must not be 0", e.getMessage());
 		}
-		Fraction c3 = new Fraction(BigInteger.valueOf(Integer.MAX_VALUE), BigInteger.valueOf(Integer.MIN_VALUE));
-		assertEquals("MAX/MIN bigints", BigInteger.valueOf(Integer.MAX_VALUE).negate(), c3.numerator());
-		assertEquals("MAX/MIN bigints", BigInteger.valueOf(Integer.MIN_VALUE).negate(), c3.denominator());
-		
+		Fraction c3 = new Fraction(BigInteger.valueOf(Integer.MAX_VALUE),
+				BigInteger.valueOf(Integer.MIN_VALUE));
+		assertEquals("MAX/MIN bigints", BigInteger.valueOf(Integer.MAX_VALUE)
+				.negate(), c3.numerator());
+		assertEquals("MAX/MIN bigints", BigInteger.valueOf(Integer.MIN_VALUE)
+				.negate(), c3.denominator());
+
 		Fraction d0 = new Fraction(BigInteger.valueOf(5));
 		assertEquals("pos bigint", BigInteger.valueOf(5), d0.numerator());
 		assertEquals("pos bigint", BigInteger.ONE, d0.denominator());
 		Fraction d1 = new Fraction(BigInteger.valueOf(Integer.MAX_VALUE));
-		assertEquals("MAX bigint", BigInteger.valueOf(Integer.MAX_VALUE), d1.numerator());
+		assertEquals("MAX bigint", BigInteger.valueOf(Integer.MAX_VALUE),
+				d1.numerator());
 		assertEquals("MAX bigint", BigInteger.ONE, d1.denominator());
 		Fraction d2 = new Fraction(BigInteger.valueOf(Integer.MIN_VALUE));
-		assertEquals("MIN bigint", BigInteger.valueOf(Integer.MIN_VALUE), d2.numerator());
+		assertEquals("MIN bigint", BigInteger.valueOf(Integer.MIN_VALUE),
+				d2.numerator());
 		assertEquals("MIN bigint", BigInteger.ONE, d2.denominator());
 		Fraction d3 = new Fraction(BigInteger.ZERO);
 		assertEquals("0 bigint", BigInteger.ZERO, d3.numerator());
@@ -112,6 +119,7 @@ public class FractionTest {
 		Fraction third = new Fraction(1, 3);
 		Fraction neghalf = new Fraction(-1, 2);
 		Fraction threefourths = new Fraction(.75);
+		Fraction zero = new Fraction(0, 2);
 
 		// numerator()
 		assertEquals("num", BigInteger.valueOf(1), one.numerator());
@@ -178,11 +186,23 @@ public class FractionTest {
 		// reciprocal
 		assertEquals(new Fraction(4, 3), threefourths.reciprocal());
 		assertEquals(single, one.reciprocal());
+		try {
+			zero.reciprocal();
+			fail("Denominator is zero; should have thrown Exception");
+		} catch (Exception e) {
+			assertEquals("denominator is set to zero",
+					"denominator must not be zero", e.getMessage());
+		}
 
-		//negate
+		// doubleValue
+		// Double oneHalf = .5;
+		// assertEquals(".75", Double.valueOf(.75), half.doubleValue());
+		// public methods
+
+		// negate
 		assertEquals("negate 1", new Fraction(-1), one.negate());
 		assertEquals("negate -1", new Fraction(1), negone.negate());
-		assertEquals("negate -1/2", new Fraction(1,2), neghalf.negate());
+		assertEquals("negate -1/2", new Fraction(1, 2), neghalf.negate());
 
 	} // public methods
 
