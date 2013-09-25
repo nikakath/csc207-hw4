@@ -1,5 +1,6 @@
 package edu.grinnell.csc207.nikakath.hw4;
 
+import java.util.Arrays;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -8,10 +9,49 @@ import edu.grinnell.csc207.nikakath.hw4.Fraction;
 public class Calculator {
 	static String[] rs = { "0", "0", "0", "0", "0", "0", "0", "0" };
 
-	public static Fraction evaluate(String expression) {
+	public static Fraction evaluate(String expression) throws Exception {
 		String[] expressions = expression.split(" ");
+		/*if (expressions.length > 1) {
+
+			if (expressions[1].compareTo("=") == 0) {
+				if (expressions[0].charAt(0) != 'r') {
+					throw new Exception(
+							"you must include a memory address if you want to store something. You included: "
+									+ expressions[0]);
+				} else if (expressions[0].length()>2 && Character.getNumericValue(expressions[0].charAt(1)) > 7
+						|| Character.getNumericValue(expressions[0].charAt(1)) < 0) {
+					throw new Exception(
+							"You must specify a memory address between 0 and 7");
+				}
+			} else {
+				for (int index = 1; index < expressions.length - 1; index = index + 2) {
+					if (expressions[index].compareTo("+") != 0
+							&& expressions[index].compareTo("-") != 0
+							&& expressions[index].compareTo("*") != 0
+							&& expressions[index].compareTo("/") != 0) {
+						throw new Exception("At location " + index
+								+ ", user included a non-recognized operation.");
+					}
+				}
+			}
+
+			for (int index = 0; index < expressions.length - 1; index = index + 2) {
+				for (int i = 0; i < expressions[index].length(); i++) {
+					if (Character.isDigit(expressions[index].charAt(i)) == false
+							&& expressions[index].charAt(i) != 'r'
+							&& expressions[index].charAt(i) != '/') {
+						System.out.println(expressions[index]);
+						throw new Exception("at Location " + index
+								+ ", user included a non-parsable input.");
+					}
+
+				}
+			}
+		}*/
+
 		if (expression.contains("=")) {
-			String substring = expression.substring(expression.indexOf("="));
+			String substring = expression.substring(expression.indexOf("=")+2);
+			System.out.println(expression.substring(expression.indexOf("=")+2));
 			rs[Character.getNumericValue(expression.charAt(1))] = substring;
 			return null;
 		}
@@ -21,6 +61,7 @@ public class Calculator {
 				return (evaluate(rs[Character.getNumericValue(expression
 						.charAt(1))]));
 			} else {
+				System.out.println(expressions[0]);
 				return new Fraction(expressions[0]);
 			}
 		}
@@ -36,6 +77,7 @@ public class Calculator {
 			if (expressions[1].equals("/")) {
 				return evaluate(first.divide(other).toString().concat(rest));
 			} else if (expressions[1].equals("+")) {
+
 				return evaluate(first.add(other).toString().concat(rest));
 			} else if (expressions[1].equals("*")) {
 				return evaluate(first.multiply(other).toString().concat(rest));
@@ -48,7 +90,7 @@ public class Calculator {
 		return null;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		String in = "";
 		PrintWriter pen = new PrintWriter(System.out, true);
 		java.io.BufferedReader eyes;
@@ -60,34 +102,26 @@ public class Calculator {
 		while (!terminate) {
 			pen.print("Input expression: ");
 			pen.flush();
-			boolean repeat = true;
-			while (repeat) {
-				try {
-					in = eyes.readLine();
-				} catch (IOException e) {
-					pen.println("I'm sorry; something was wrong with your input. "
-							+ e.getMessage());
+			try {
+				in = eyes.readLine();
+			} catch (IOException e) {
+				pen.println("I'm sorry; something was wrong with your input. "
+						+ e.getMessage());
+				pen.flush();
+			}
+			try {
+				Fraction result = evaluate(in);
+				if (result == null) {
+					pen.println("Stored!");
+					pen.flush();
+				} else {
+					pen.println(in + " = " + result.toString());
 					pen.flush();
 				}
-				try {
-					Fraction result = evaluate(in);
-					if (result == null) {
-						pen.println("Stored!");
-						pen.flush();
-					} else {
-						pen.println(in + " = " + result.toString());
-						pen.flush();
-					}
-				} catch (Exception e) {
-					if (e.getMessage().equals("Zero length BigInteger")) {
-						pen.println("I'm sorry; you did not input an expression. Please try again.");
-						pen.flush();
-					} else {
-						pen.println("I'm sorry; something was wrong with your input. "
-								+ e.getMessage());
-						pen.flush();
-					}
-				}
+			} catch (Exception e) {
+				pen.println("I'm sorry; something was wrong with your input. "
+						+ e.getMessage());
+				pen.flush();
 			}
 			pen.print("Input another expression? y/n ");
 			pen.flush();
