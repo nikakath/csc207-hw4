@@ -1,6 +1,5 @@
 package edu.grinnell.csc207.nikakath.hw4;
 
-import java.util.Arrays;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -91,8 +90,9 @@ public class Calculator {
 			} else if (expressions[1].equals("-")) {
 				return evaluate(first.subtract(other).toString().concat(rest));
 			} else if (expressions[1].equals("^")) {
-				return evaluate(first.pow(other).toString().concat(rest));
-			} // IMPLEMENT POW ("^")
+				return evaluate(first.pow(other.numerator().intValue())
+						.toString().concat(rest));
+			}
 
 		}
 
