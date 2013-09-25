@@ -72,7 +72,6 @@ public class Fraction {
 	} // Fraction(double)
 
 	public Fraction(String fraction) {
-		System.out.println("FRACTION CONSTRUCTOR IS " + fraction);
 		if (!fraction.contains("/")) {
 			this.numerator = new BigInteger(fraction);
 			this.denominator = BigInteger.ONE;
