@@ -72,27 +72,14 @@ public class Fraction {
 	} // Fraction(double)
 
 	public Fraction(String fraction) {
-
+		System.out.println("FRACTION CONSTRUCTOR IS " + fraction);
 		if (!fraction.contains("/")) {
 			this.numerator = new BigInteger(fraction);
 			this.denominator = BigInteger.ONE;
 		} else {
-			int j = 0;
-			boolean afterSlash = false;
-
-			for (int i = 0; i < fraction.length(); i++) {
-				if (fraction.charAt(i) == '/') {
-					afterSlash = true;
-				} // if
-
-				if (afterSlash) {
-					j++;
-				} // if
-			} // for
-
-			this.numerator = new BigInteger(fraction.substring(0,
-					(fraction.length() - j)));
-			this.denominator = new BigInteger(fraction.substring(j+1));
+			String[] expressions = fraction.split("/");
+			this.numerator = new BigInteger(expressions[0]);
+			this.denominator = new BigInteger(expressions[1]);
 			this.simplify();
 		} // if
 	} // Fraction(String)
