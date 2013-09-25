@@ -2,8 +2,6 @@ package edu.grinnell.csc207.nikakath.hw4;
 
 import static org.junit.Assert.*;
 
-import java.math.BigInteger;
-
 import org.junit.Test;
 
 public class CalculatorTest {
