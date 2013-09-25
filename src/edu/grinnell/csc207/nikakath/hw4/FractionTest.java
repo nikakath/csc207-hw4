@@ -18,9 +18,9 @@ public class FractionTest {
 		try {
 			Fraction a2 = new Fraction(-3, 0);
 			fail("Division by 0; should have thrown Exception");
-		} catch (ArithmeticException e) {
+		} catch (Exception e) {
 			assertEquals("Caught division-by-0 exception",
-					"denominator must not be 0", e.getMessage());
+					"denominator must not be zero", e.getMessage());
 		}
 		Fraction a3 = new Fraction(Integer.MAX_VALUE, Integer.MIN_VALUE);
 		assertEquals("MAX/MIN ints", BigInteger.valueOf(Integer.MAX_VALUE)
@@ -56,9 +56,9 @@ public class FractionTest {
 		try {
 			Fraction c2 = new Fraction(BigInteger.valueOf(-3), BigInteger.ZERO);
 			fail("Division by 0; should have thrown Exception");
-		} catch (ArithmeticException e) {
+		} catch (Exception e) {
 			assertEquals("Caught division-by-0 exception",
-					"denominator must not be 0", e.getMessage());
+					"denominator must not be zero", e.getMessage());
 		}
 		Fraction c3 = new Fraction(BigInteger.valueOf(Integer.MAX_VALUE),
 				BigInteger.valueOf(Integer.MIN_VALUE));
