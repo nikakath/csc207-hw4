@@ -35,7 +35,8 @@ public class Calculator {
 					if (expressions[index].compareTo("+") != 0
 							&& expressions[index].compareTo("-") != 0
 							&& expressions[index].compareTo("*") != 0
-							&& expressions[index].compareTo("/") != 0) {
+							&& expressions[index].compareTo("/") != 0
+							&& expressions[index].compareTo("^") != 0) {
 						throw new Exception("At location " + index
 								+ ", user included a non-recognized operation.");
 					}
@@ -89,6 +90,8 @@ public class Calculator {
 				return evaluate(first.multiply(other).toString().concat(rest));
 			} else if (expressions[1].equals("-")) {
 				return evaluate(first.subtract(other).toString().concat(rest));
+			} else if (expressions[1].equals("^")) {
+				return evaluate(first.pow(other).toString().concat(rest));
 			} // IMPLEMENT POW ("^")
 
 		}
