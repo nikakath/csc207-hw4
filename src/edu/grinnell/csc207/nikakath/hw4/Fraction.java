@@ -92,7 +92,7 @@ public class Fraction {
 
 			this.numerator = new BigInteger(fraction.substring(0,
 					(fraction.length() - j)));
-			this.denominator = new BigInteger(fraction.substring(j));
+			this.denominator = new BigInteger(fraction.substring(j+1));
 			this.simplify();
 		} // if
 	} // Fraction(String)
