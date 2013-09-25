@@ -9,7 +9,7 @@ import org.junit.Test;
 public class FractionTest {
 
 	@Test
-	public void testConstructors() {
+	public void testConstructors() throws Exception{
 		// Constructors from integers
 		Fraction a = new Fraction(1, 2);
 		assertEquals("intd", BigInteger.valueOf(1), a.numerator());
@@ -29,9 +29,12 @@ public class FractionTest {
 		// Constructor from String
 		Fraction e = new Fraction("6/8");
 		Fraction f = new Fraction("7");
+		Fraction g = new Fraction ("11/12");
 		assertEquals("string", BigInteger.valueOf(4), e.denominator());
 		assertEquals("string", BigInteger.valueOf(7), f.numerator());
 		assertEquals("string", BigInteger.valueOf(1), f.denominator());
+		assertEquals("string", BigInteger.valueOf(11), f.numerator());
+		assertEquals("string", BigInteger.valueOf(12), f.denominator());
 
 		// Constructor from double
 		Fraction threeFourths = new Fraction(.75);
@@ -42,7 +45,7 @@ public class FractionTest {
 	} // constructors
 
 	@Test
-	public void testPublicMethods() {
+	public void testPublicMethods() throws Exception{
 
 		// Declarations of variables
 		Fraction one = new Fraction(2, 2);
@@ -51,6 +54,7 @@ public class FractionTest {
 		Fraction half = new Fraction(1, 2);
 		Fraction third = new Fraction(1, 3);
 		Fraction neghalf = new Fraction(-1, 2);
+		Fraction threefourths = new Fraction(.75);
 
 		// numerator()
 		assertEquals("num", BigInteger.valueOf(1), one.numerator());
@@ -88,7 +92,7 @@ public class FractionTest {
 		assertEquals("frac * 0", new Fraction(0),
 				single.multiply(new Fraction(0)));
 
-		// divide(Fraction) NOT FINISHED
+		// divide(Fraction) 
 		assertEquals("pos / pos", new Fraction(5, 2),
 				half.divide(new Fraction(1, 5)));
 		assertEquals("pos / neg", new Fraction(-5, 1),
@@ -101,11 +105,28 @@ public class FractionTest {
 		catch (ArithmeticException e) {
 		    assertEquals("Caught division-by-0 exception", "Division by 0", e.getMessage());
 		}
+		assertEquals("neg / pos", new Fraction(-5, 2),
+			neghalf.divide(new Fraction(1, 5)));
+		assertEquals("neg / neg", new Fraction(5, 2),
+			neghalf.divide(new Fraction(-1, 5)));
+		
+		// pow(int)
+		assertEquals("pos ^ pos", new Fraction(1, 4), half.pow(2));
+		assertEquals("pos ^ 0", new Fraction(1), half.pow(0));
+		assertEquals("pos ^ 1", half, half.pow(1));
+		assertEquals("pos ^ neg", new Fraction(4), half.pow(-2));
+		assertEquals("neg ^ pos", new Fraction(-1, 8), neghalf.pow(3));
+		assertEquals("neg ^ neg", new Fraction(-8), neghalf.pow(-3));
+		
+		//reciprocal
+		assertEquals(new Fraction(4, 3), threefourths.reciprocal());
+		assertEquals(single, one.reciprocal());
+		
 		
 	} //public methods
 	
 		@Test
-		public void testPrivateMethods() {
+		public void testPrivateMethods() throws Exception{
 
 		// simplify()
 		assertEquals("2/2", BigInteger.ONE, new Fraction(2, 2).numerator());
