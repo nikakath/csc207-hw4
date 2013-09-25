@@ -218,26 +218,65 @@ public class FractionTest {
 		assertEquals("bigdecimal whole", BigDecimal.valueOf(1),
 				one.bigDecimalValue());
 
+		// fractionalPart
 		Fraction sevenfifths = new Fraction(7, 5);
 		Fraction negsevenfifths = new Fraction(-7, 5);
-		// fractionalPart
 		assertEquals("pos <1 fracpart", threefourths,
 				threefourths.fractionalPart());
 		assertEquals("neg >-1 fracpart", neghalf, neghalf.fractionalPart());
 		assertEquals("pos >1 fracpart", new Fraction(2, 5),
 				sevenfifths.fractionalPart());
-		assertEquals("neg <-1 fracpart", new Fraction(-2, 5), negsevenfifths.fractionalPart());
-		
+		assertEquals("neg <-1 fracpart", new Fraction(-2, 5),
+				negsevenfifths.fractionalPart());
 		Fraction fiftyptfive = new Fraction(101, 2);
+
 		// wholePart
 		assertEquals("pos <1 wholepart", BigInteger.ZERO,
 				threefourths.wholePart());
 		assertEquals("neg >-1 wholepart", BigInteger.ZERO, neghalf.wholePart());
 		assertEquals("pos >1 wholepart", BigInteger.ONE,
 				sevenfifths.wholePart());
-		assertEquals("neg <-1 wholepart", BigInteger.ONE.negate(), negsevenfifths.wholePart());
-		assertEquals("big pos wholepart", BigInteger.valueOf(50), fiftyptfive.wholePart());
+		assertEquals("neg <-1 wholepart", BigInteger.ONE.negate(),
+				negsevenfifths.wholePart());
+		assertEquals("big pos wholepart", BigInteger.valueOf(50),
+				fiftyptfive.wholePart());
+
 	} // public methods
+
+	@Test
+	public void testStandardMethods() throws Exception {
+		// clone
+		Fraction a = new Fraction(2, 3);
+		Fraction b = new Fraction(1, -20);
+		assertEquals("clone", a, a.clone());
+		assertEquals("clone", b, b.clone());
+
+		// toString
+		Fraction c = new Fraction(3);
+		Fraction d = new Fraction(-5);
+		assertEquals("toString pos frac", "2/3", a.toString());
+		assertEquals("toString neg frac", "-1/20", b.toString());
+		assertEquals("toString pos int", "3", c.toString());
+		assertEquals("toString neg int", "-5", d.toString());
+
+		// compareTo
+		assertEquals("neg frac < pos frac", -1, b.compareTo(a));
+		assertEquals("big neg < small neg", -1, d.compareTo(b));
+		assertEquals("pos frac > neg frac", 1, a.compareTo(b));
+		assertEquals("big pos > small pos", 1, c.compareTo(a));
+		assertEquals("compareTo clone", 0, a.compareTo(a.clone()));
+
+		// equals
+		assertEquals("equals clone frac", true, a.equals(a.clone()));
+		assertEquals("equals self frac", true, b.equals(b));
+		assertEquals("inequal fracs", false, a.equals(b));
+		Object e = new Fraction(2, 3);
+		assertEquals("equal objects", true, a.equals(e));
+
+		// hashCode
+		assertEquals("hashCode is a thing I guess", a.hashCode(), a.clone()
+				.hashCode());
+	} // standard methods
 
 	@Test
 	public void testPrivateMethods() throws Exception {
