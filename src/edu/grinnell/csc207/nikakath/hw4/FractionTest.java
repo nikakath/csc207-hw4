@@ -11,37 +11,94 @@ public class FractionTest {
 	@Test
 	public void testConstructors() throws Exception {
 		// Constructors from integers
-		Fraction a = new Fraction(1, 2);
-		assertEquals("intd", BigInteger.valueOf(1), a.numerator());
-		assertEquals("intn", BigInteger.valueOf(2), a.denominator());
-		Fraction b = new Fraction(5);
-		assertEquals("intn", BigInteger.valueOf(5), b.numerator());
-		assertEquals("intn", BigInteger.valueOf(1), b.denominator());
+		Fraction a0 = new Fraction(1, 2);
+		assertEquals("1/2 ints", BigInteger.ONE, a0.numerator());
+		assertEquals("1/2 ints", BigInteger.valueOf(2), a0.denominator());
+		Fraction a1 = new Fraction(0, -3);
+		assertEquals("0 ints", BigInteger.ZERO, a1.numerator());
+		assertEquals("0 ints", BigInteger.ONE, a1.denominator());
+		try {
+			Fraction a2 = new Fraction(-3, 0);
+			fail("Division by 0; should have thrown Exception");
+		} catch (ArithmeticException e) {
+			assertEquals("Caught division-by-0 exception", "denominator must not be 0",
+					e.getMessage());
+		}
+		Fraction a3 = new Fraction(Integer.MAX_VALUE, Integer.MIN_VALUE);
+		assertEquals("MAX/MIN ints", BigInteger.valueOf(Integer.MAX_VALUE).negate(), a3.numerator());
+		assertEquals("MAX/MIN ints", BigInteger.valueOf(Integer.MIN_VALUE).negate(), a3.denominator());
+		
+		Fraction b0 = new Fraction(5);
+		assertEquals("pos int", BigInteger.valueOf(5), b0.numerator());
+		assertEquals("pos int", BigInteger.ONE, b0.denominator());
+		Fraction b1 = new Fraction(Integer.MAX_VALUE);
+		assertEquals("MAX int", BigInteger.valueOf(Integer.MAX_VALUE), b1.numerator());
+		assertEquals("MAX int", BigInteger.ONE, b1.denominator());
+		Fraction b2 = new Fraction(Integer.MIN_VALUE);
+		assertEquals("MIN int", BigInteger.valueOf(Integer.MIN_VALUE), b2.numerator());
+		assertEquals("MIN int", BigInteger.ONE, b2.denominator());
+		Fraction b3 = new Fraction(0);
+		assertEquals("0 int", BigInteger.ZERO, b3.numerator());
+		assertEquals("0 int", BigInteger.ONE, b3.denominator());
+		Fraction b4 = new Fraction(-5);
+		assertEquals("neg int", BigInteger.valueOf(-5), b4.numerator());
+		assertEquals("neg int", BigInteger.ONE, b4.denominator());
 
 		// Constructors from BigInts
-		Fraction c = new Fraction(BigInteger.valueOf(5), BigInteger.valueOf(3));
-		assertEquals("intd", BigInteger.valueOf(5), c.numerator());
-		assertEquals("intn", BigInteger.valueOf(3), c.denominator());
-		Fraction d = new Fraction(BigInteger.valueOf(8));
-		assertEquals("intn", BigInteger.valueOf(8), d.numerator());
-		assertEquals("intn", BigInteger.valueOf(1), d.denominator());
+		Fraction c0 = new Fraction(BigInteger.ONE, BigInteger.valueOf(2));
+		assertEquals("1/2 bigints", BigInteger.ONE, c0.numerator());
+		assertEquals("1/2 bigints", BigInteger.valueOf(2), c0.denominator());
+		Fraction c1 = new Fraction(BigInteger.ZERO, BigInteger.valueOf(-3));
+		assertEquals("0 bigints", BigInteger.ZERO, c1.numerator());
+		assertEquals("0 bigints", BigInteger.ONE, c1.denominator());
+		try {
+			Fraction c2 = new Fraction(BigInteger.valueOf(-3), BigInteger.ZERO);
+			fail("Division by 0; should have thrown Exception");
+		} catch (ArithmeticException e) {
+			assertEquals("Caught division-by-0 exception", "denominator must not be 0",
+					e.getMessage());
+		}
+		Fraction c3 = new Fraction(BigInteger.valueOf(Integer.MAX_VALUE), BigInteger.valueOf(Integer.MIN_VALUE));
+		assertEquals("MAX/MIN bigints", BigInteger.valueOf(Integer.MAX_VALUE).negate(), c3.numerator());
+		assertEquals("MAX/MIN bigints", BigInteger.valueOf(Integer.MIN_VALUE).negate(), c3.denominator());
+		
+		Fraction d0 = new Fraction(BigInteger.valueOf(5));
+		assertEquals("pos bigint", BigInteger.valueOf(5), d0.numerator());
+		assertEquals("pos bigint", BigInteger.ONE, d0.denominator());
+		Fraction d1 = new Fraction(BigInteger.valueOf(Integer.MAX_VALUE));
+		assertEquals("MAX bigint", BigInteger.valueOf(Integer.MAX_VALUE), d1.numerator());
+		assertEquals("MAX bigint", BigInteger.ONE, d1.denominator());
+		Fraction d2 = new Fraction(BigInteger.valueOf(Integer.MIN_VALUE));
+		assertEquals("MIN bigint", BigInteger.valueOf(Integer.MIN_VALUE), d2.numerator());
+		assertEquals("MIN bigint", BigInteger.ONE, d2.denominator());
+		Fraction d3 = new Fraction(BigInteger.ZERO);
+		assertEquals("0 bigint", BigInteger.ZERO, d3.numerator());
+		assertEquals("0 bigint", BigInteger.ONE, d3.denominator());
+		Fraction d4 = new Fraction(BigInteger.valueOf(-5));
+		assertEquals("neg bigint", BigInteger.valueOf(-5), d4.numerator());
+		assertEquals("neg bigint", BigInteger.ONE, d4.denominator());
 
 		// Constructor from String
 		Fraction e = new Fraction("6/8");
-		Fraction f = new Fraction("7");
-		Fraction g = new Fraction("11/12");
-		assertEquals("string", BigInteger.valueOf(4), e.denominator());
-		assertEquals("string", BigInteger.valueOf(7), f.numerator());
-		assertEquals("string", BigInteger.valueOf(1), f.denominator());
-		assertEquals("string", BigInteger.valueOf(11), g.numerator());
-		assertEquals("string", BigInteger.valueOf(12), g.denominator());
+		Fraction f = new Fraction("-7");
+		Fraction g = new Fraction("11/-12");
+		assertEquals("pos string", BigInteger.valueOf(3), e.numerator());
+		assertEquals("pos string", BigInteger.valueOf(4), e.denominator());
+		assertEquals("neg int string", BigInteger.valueOf(-7), f.numerator());
+		assertEquals("neg int string", BigInteger.valueOf(1), f.denominator());
+		assertEquals("neg string", BigInteger.valueOf(-11), g.numerator());
+		assertEquals("neg string", BigInteger.valueOf(12), g.denominator());
 
 		// Constructor from double
-		Fraction threeFourths = new Fraction(.75);
-		assertEquals("double", BigInteger.valueOf(3), threeFourths.numerator());
-		assertEquals("double", BigInteger.valueOf(4),
-				threeFourths.denominator());
-
+		Fraction h0 = new Fraction(.75);
+		assertEquals("pos double", BigInteger.valueOf(3), h0.numerator());
+		assertEquals("pos double", BigInteger.valueOf(4), h0.denominator());
+		Fraction h1 = new Fraction(-.75);
+		assertEquals("neg double", BigInteger.valueOf(-3), h1.numerator());
+		assertEquals("neg double", BigInteger.valueOf(4), h1.denominator());
+		Fraction h2 = new Fraction(-0.0);
+		assertEquals("neg 0 double", BigInteger.valueOf(0), h2.numerator());
+		assertEquals("neg 0 double", BigInteger.valueOf(1), h2.denominator());
 	} // constructors
 
 	@Test
