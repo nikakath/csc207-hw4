@@ -6,74 +6,85 @@ import java.math.BigDecimal;
 import java.lang.Math;
 
 public class Fraction {
-<<<<<<< HEAD
     private BigInteger numerator;
     private BigInteger denominator;
 
-	/*
-	 * +--------------+ | Constructors | +--------------+
-	 */
+    /*
+     * +--------------+ | Constructors | +--------------+
+     */
+
+    /*
+     * Construct Fractions from a variety of input parameters
+     */
+
+    public Fraction(int num, int den) throws Exception {
+	this.numerator = BigInteger.valueOf(num);
+	if (den == 0) {
+	    throw new Exception("denominator must not be zero");
+	} else {
+	    this.denominator = BigInteger.valueOf(den);
+	}
+	this.simplify();
+    } // Fraction(int, int)
+
+    public Fraction(int num) {
+	this.numerator = BigInteger.valueOf(num);
+	this.denominator = BigInteger.ONE;
+	this.simplify();
+    } // Fraction(int)
+
+    public Fraction(BigInteger num, BigInteger den) throws Exception {
+	this.numerator = num;
+	if (den == BigInteger.ZERO) {
+	    throw new Exception("denominator must not be zero");
+	} else {
+	    this.denominator = den;
+	}
+	this.simplify();
+    } // Fraction(BigInteger,BigInteger)
+
+    public Fraction(BigInteger num) {
+	this.numerator = num;
+	this.denominator = BigInteger.ONE;
+	this.simplify();
+    } // Fraction(BigInteger)
+
+    public Fraction(long num, long den) throws Exception {
+	this.numerator = BigInteger.valueOf(num);
+	if (den == 0) {
+	    throw new Exception("denominator must not be zero");
+	} else {
+	    this.denominator = BigInteger.valueOf(den);
+	}
+	this.simplify();
+    } // Fraction(long, long)
+
+    public Fraction(long num) {
+	this.numerator = BigInteger.valueOf(num);
+	this.denominator = BigInteger.ONE;
+	this.simplify();
+    } // Fraction(long)
+
+    public Fraction(double num) {
+	int j = 0;
+	String doub = Double.toString(num);
+	boolean afterDot = false;
+
+	for (int i = 0; i < doub.length(); i++) {
+	    if (doub.charAt(i) == '.') {
+		afterDot = true;
+	    }
+
+	    if (afterDot) {
+		j++;
+	    }
+	}
+
+	this.numerator = BigInteger.valueOf((long) (num * Math.pow(10, j)));
+	this.denominator = BigInteger.valueOf((long) (Math.pow(10, j)));
+	this.simplify();
+    } // Fraction(double)
 	
-	/*
-	 * Construct Fractions from a variety of input parameters
-	 */
-	
-	public Fraction(int num, int den) {
-		this.numerator = BigInteger.valueOf(num);
-		this.denominator = BigInteger.valueOf(den);
-		this.simplify();
-	} // Fraction(int, int)
-
-	public Fraction(int num) {
-		this.numerator = BigInteger.valueOf(num);
-		this.denominator = BigInteger.ONE;
-		this.simplify();
-	} // Fraction(int)
-
-	public Fraction(BigInteger num, BigInteger den) {
-		this.numerator = num;
-		this.denominator = den;
-		this.simplify();
-	} // Fraction(BigInteger,BigInteger)
-
-	public Fraction(BigInteger num) {
-		this.numerator = num;
-		this.denominator = BigInteger.ONE;
-		this.simplify();
-	} // Fraction(BigInteger)
-
-	public Fraction(long num, long den) {
-		this.numerator = BigInteger.valueOf(num);
-		this.denominator = BigInteger.valueOf(den);
-		this.simplify();
-	} // Fraction(long, long) 
-
-	public Fraction(long num) {
-		this.numerator = BigInteger.valueOf(num);
-		this.denominator = BigInteger.ONE;
-		this.simplify();
-	} // Fraction(long)
-
-	public Fraction(double num) {
-		int j = 0;
-		String doub = Double.toString(num);
-		boolean afterDot = false;
-
-		for (int i = 0; i < doub.length(); i++) {
-			if (doub.charAt(i) == '.') {
-				afterDot = true;
-			}
-
-			if (afterDot) {
-				j++;
-			}
-		}
-
-		this.numerator = BigInteger.valueOf((long) (num * Math.pow(10, j)));
-		this.denominator = BigInteger.valueOf((long) (Math.pow(10, j)));
-		this.simplify();
-	} // Fraction(double)
-
 	public Fraction(String fraction) throws Exception{
 		if (!fraction.contains("/")) {
 			this.numerator = new BigInteger(fraction);
@@ -84,7 +95,10 @@ public class Fraction {
 			this.denominator = new BigInteger(expressions[1]);
 			this.simplify();
 		} // if
-    } // Fraction(String)
+	    } // for
+
+
+ // Fraction(String)
 
     /*
      * +----------------+ | Public methods | +----------------+

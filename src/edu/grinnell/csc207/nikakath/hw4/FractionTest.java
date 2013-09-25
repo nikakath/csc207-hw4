@@ -33,14 +33,18 @@ public class FractionTest {
 		assertEquals("string", BigInteger.valueOf(4), e.denominator());
 		assertEquals("string", BigInteger.valueOf(7), f.numerator());
 		assertEquals("string", BigInteger.valueOf(1), f.denominator());
-		assertEquals("string", BigInteger.valueOf(11), f.numerator());
-		assertEquals("string", BigInteger.valueOf(12), f.denominator());
+		assertEquals("string", BigInteger.valueOf(11), g.numerator());
+		assertEquals("string", BigInteger.valueOf(12), g.denominator());
 
 		// Constructor from double
 		Fraction threeFourths = new Fraction(.75);
+		Fraction negthreeFourths = new Fraction(-.75);
 		assertEquals("double", BigInteger.valueOf(3), threeFourths.numerator());
 		assertEquals("double", BigInteger.valueOf(4),
 				threeFourths.denominator());
+		assertEquals("double", BigInteger.valueOf(-3), negthreeFourths.numerator());
+		assertEquals("double", BigInteger.valueOf(4),
+				negthreeFourths.denominator());
 
 	} // constructors
 
@@ -55,6 +59,7 @@ public class FractionTest {
 		Fraction third = new Fraction(1, 3);
 		Fraction neghalf = new Fraction(-1, 2);
 		Fraction threefourths = new Fraction(.75);
+		Fraction zero = new Fraction(0, 2);
 
 		// numerator()
 		assertEquals("num", BigInteger.valueOf(1), one.numerator());
@@ -121,8 +126,17 @@ public class FractionTest {
 		//reciprocal
 		assertEquals(new Fraction(4, 3), threefourths.reciprocal());
 		assertEquals(single, one.reciprocal());
+		try {
+		    zero.reciprocal();
+		    fail("Denominator is zero; should have thrown Exception");
+		}
+		catch (Exception e) {
+		    assertEquals("denominator is set to zero", "denominator must not be zero", e.getMessage());
+		}
 		
-		
+		//doubleValue
+	//	Double oneHalf = .5;
+	//	assertEquals(".75", Double.valueOf(.75), half.doubleValue());
 	} //public methods
 	
 		@Test
