@@ -2,7 +2,6 @@ package edu.grinnell.csc207.nikakath.hw4;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.BigDecimal;
 import java.lang.Math;
 
 public class Fraction {
@@ -84,8 +83,8 @@ public class Fraction {
 	this.denominator = BigInteger.valueOf((long) (Math.pow(10, j)));
 	this.simplify();
     } // Fraction(double)
-	
-	public Fraction(String fraction) throws Exception{
+
+	public Fraction(String fraction) throws Exception {
 		if (!fraction.contains("/")) {
 			this.numerator = new BigInteger(fraction);
 			this.denominator = BigInteger.ONE;
@@ -94,8 +93,8 @@ public class Fraction {
 			this.numerator = new BigInteger(expressions[0]);
 			this.denominator = new BigInteger(expressions[1]);
 			this.simplify();
-		} // if
-	    } // for
+		} // else
+	    } // if
 
 
  // Fraction(String)
@@ -318,4 +317,5 @@ public class Fraction {
 	this.numerator = num;
 	this.denominator = den;
     } // simplify()
-} // Fraction
+	
+}
