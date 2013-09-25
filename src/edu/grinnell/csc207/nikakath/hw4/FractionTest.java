@@ -1,6 +1,8 @@
 package edu.grinnell.csc207.nikakath.hw4;
 
 import static org.junit.Assert.*;
+
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.junit.Test;
 
@@ -183,9 +185,15 @@ public class FractionTest {
 		assertEquals("neg ^ pos", new Fraction(-1, 8), neghalf.pow(3));
 		assertEquals("neg ^ neg", new Fraction(-8), neghalf.pow(-3));
 
+		// negate
+		assertEquals("negate 1", new Fraction(-1), one.negate());
+		assertEquals("negate -1", new Fraction(1), negone.negate());
+		assertEquals("negate -1/2", new Fraction(1, 2), neghalf.negate());
+
 		// reciprocal
-		assertEquals(new Fraction(4, 3), threefourths.reciprocal());
-		assertEquals(single, one.reciprocal());
+		assertEquals("pos recip", new Fraction(4, 3), threefourths.reciprocal());
+		assertEquals("pos whole recip", single, one.reciprocal());
+		assertEquals("neg recip", new Fraction(-2), neghalf.reciprocal());
 		try {
 			zero.reciprocal();
 			fail("Denominator is zero; should have thrown Exception");
@@ -195,15 +203,40 @@ public class FractionTest {
 		}
 
 		// doubleValue
-		// Double oneHalf = .5;
-		// assertEquals(".75", Double.valueOf(.75), half.doubleValue());
-		// public methods
+		assertEquals("double half", .5, half.doubleValue(), .0000001);
+		assertEquals("double neg half", -0.5, neghalf.doubleValue(), .0000001);
+		assertEquals("double zero", 0.0, zero.doubleValue(), .0000001);
+		assertEquals("double whole", 1.0, one.doubleValue(), .0000001);
 
-		// negate
-		assertEquals("negate 1", new Fraction(-1), one.negate());
-		assertEquals("negate -1", new Fraction(1), negone.negate());
-		assertEquals("negate -1/2", new Fraction(1, 2), neghalf.negate());
+		// bigDecimalValue
+		assertEquals("bigdecimal half", BigDecimal.valueOf(.5),
+				half.bigDecimalValue());
+		assertEquals("bigdecimal neg half", BigDecimal.valueOf(-0.5),
+				neghalf.bigDecimalValue());
+		assertEquals("bigdecimal zero", BigDecimal.valueOf(0),
+				zero.bigDecimalValue());
+		assertEquals("bigdecimal whole", BigDecimal.valueOf(1),
+				one.bigDecimalValue());
 
+		Fraction sevenfifths = new Fraction(7, 5);
+		Fraction negsevenfifths = new Fraction(-7, 5);
+		// fractionalPart
+		assertEquals("pos <1 fracpart", threefourths,
+				threefourths.fractionalPart());
+		assertEquals("neg >-1 fracpart", neghalf, neghalf.fractionalPart());
+		assertEquals("pos >1 fracpart", new Fraction(2, 5),
+				sevenfifths.fractionalPart());
+		assertEquals("neg <-1 fracpart", new Fraction(-2, 5), negsevenfifths.fractionalPart());
+		
+		Fraction fiftyptfive = new Fraction(101, 2);
+		// wholePart
+		assertEquals("pos <1 wholepart", BigInteger.ZERO,
+				threefourths.wholePart());
+		assertEquals("neg >-1 wholepart", BigInteger.ZERO, neghalf.wholePart());
+		assertEquals("pos >1 wholepart", BigInteger.ONE,
+				sevenfifths.wholePart());
+		assertEquals("neg <-1 wholepart", BigInteger.ONE.negate(), negsevenfifths.wholePart());
+		assertEquals("big pos wholepart", BigInteger.valueOf(50), fiftyptfive.wholePart());
 	} // public methods
 
 	@Test
